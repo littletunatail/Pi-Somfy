@@ -87,22 +87,34 @@ Next, we need to install the PIGPIO libraries, to do so, type:
 sudo apt-get install pigpio
 ```
 
-Next install the required Python Libraries:
+
+Creat a virtual environment:
 
 ```sh
-sudo pip3 install -r requirements.txt
+python3 -m venv ~/Pi-Somfy/venv
+```
+Make sure you are in the directory ~/Pi-Somfy, then activate the virtual environment:
+
+```sh
+source ~/Pi-Somfy/venv/bin/activate
+```
+
+Next install the required Python Libraries in virtual environment:
+
+```sh
+pip3 install -r requirements.txt
 ```
    
 If you decided to use Python 2, the last command will read instead:
 
 ```sh
-sudo pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Next, let's test if it all works. Start <operateShutters.py> by typing:
 
 ```sh
-sudo python3 /home/pi/Pi-Somfy/operateShutters.py
+sudo ~/pi/Pi-Somfy/venv/bin/python3 ~/pi//Pi-Somfy/operateShutters.py
 ```
 
 You should see the help text explaining the [Command Line Interface](documentation/p4.png)
