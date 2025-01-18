@@ -111,10 +111,9 @@ If you decided to use Python 2, the last command will read instead:
 pip install -r requirements.txt
 ```
 
-Next, let's test if it all works. Start <operateShutters.py> by typing:
-
+Next, make sure you're in virtual environment, then let's test if it all works. Start <operateShutters.py> by typing:
 ```sh
-sudo ~/pi/Pi-Somfy/venv/bin/python3 ~/pi//Pi-Somfy/operateShutters.py
+sudo ~/Pi-Somfy/venv/bin/python3 ~/Pi-Somfy/operateShutters.py
 ```
 
 You should see the help text explaining the [Command Line Interface](documentation/p4.png)
@@ -203,13 +202,13 @@ ExecStart=sudo /usr/bin/python2.7 /home/pi/Pi-Somfy/operateShutters.py -c /home/
 
 6. Finally, the recommended way to operate it is using a systemd service on boot time. You can do so by typing:
 ```sh
-sudo crontab –e 
+sudo crontab -e 
 ```
 Note, that "crontab -e" will just open a console-based text editor that you can edit the crontab script. The first time you run "crontab -e" you will be prompted to choose the editor. I recommend nano. From the crontab window, add the following to the bottom of the crontab script
 
 ```
-@reboot sleep 60;python3 /home/pi/Pi-Somfy/operateShutters.py -c /home/pi/Pi-Somfy/operateShutters.conf -a -e -m
-0 * * * * python3 /home/pi/Pi-Somfy/operateShutters.py -c /home/pi/Pi-Somfy/operateShutters.conf -a -e -m
+@reboot sleep 60;/home/pi/Pi-Somfy/venv/bin/python3 /home/pi/Pi-Somfy/operateShutters.py -c /home/pi/Pi-Somfy/operateShutters.conf -a -e -m
+0 * * * * /home/pi/Pi-Somfy/venv/bin/python3 /home/pi/Pi-Somfy/operateShutters.py -c /home/pi/Pi-Somfy/operateShutters.conf -a -e -m
 ```
 
 And save the crontab schedule. (if using nano type press ctrl-o to save the file, ctrl-x to exit nano). Now, every time your system is booted operateShutters will start.
