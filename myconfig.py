@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/home/pi/Pi-Somfy/venv/bin/python3
 
 import threading
 try:
@@ -52,7 +52,7 @@ class MyConfig (MyLog):
 
         parameters = {'LogLocation': str, 'Latitude': float, 'Longitude': float, 'SendRepeat': int, 'UseHttps': bool, 'HTTPPort': int, 'HTTPSPort': int, 'TXGPIO': int, 'RTS_Address': str, "Password": str}
         
-        self.SetSection("General");
+        self.SetSection("General")
         for key, type in parameters.items():
             try:
                 if self.HasOption(key):
@@ -63,7 +63,7 @@ class MyConfig (MyLog):
 
         parameters = {'MQTT_Server': str, 'MQTT_Port': int, 'MQTT_User': str, 'MQTT_Password': str, 'MQTT_ClientID': str, 'EnableDiscovery': bool}
         
-        self.SetSection("MQTT");
+        self.SetSection("MQTT")
         for key, type in parameters.items():
             try:
                 if self.HasOption(key):
@@ -72,14 +72,14 @@ class MyConfig (MyLog):
                 self.LogErrorLine("Missing config file or config file entries in Section General for key "+key+": " + str(e1))
                 return False
 
-        self.SetSection("Shutters");
-        shutters = self.GetList();
+        self.SetSection("Shutters")
+        shutters = self.GetList()
         for key, value in shutters:
             try:
                 param1 = value.split(",")
                 if param1[1].strip().lower() == 'true':
                    if (len(param1) < 3):
-                       param1.append("10");
+                       param1.append("10")
                    elif (param1[2].strip() == "") or (int(param1[2]) <= 0) or (int(param1[2]) >= 100):
                        param1[2] = "10"
                    param2 = int(self.ReadValue(key, section="ShutterRollingCodes",          return_type=int))
@@ -110,14 +110,14 @@ class MyConfig (MyLog):
 
     #---------------------MyConfig::setLocation---------------------------------
     def setLocation(self, lat, lng):
-        self.WriteValue("Latitude", lat, section="General");
-        self.WriteValue("Longitude", lng, section="General");
+        self.WriteValue("Latitude", lat, section="General")
+        self.WriteValue("Longitude", lng, section="General")
         self.Latitude = lat
         self.Longitude = lng
 
     #---------------------MyConfig::setCode---------------------------------
     def setCode(self, shutterId, code):
-        self.WriteValue(shutterId, str(code), section="ShutterRollingCodes");
+        self.WriteValue(shutterId, str(code), section="ShutterRollingCodes")
         self.Shutters[shutterId]['code'] = code
         
 
@@ -211,10 +211,10 @@ class MyConfig (MyLog):
                 FileList = ConfigFile.read().splitlines()
                 ConfigFile.close()
                 
-                mySectionStart = -1;
-                mySectionEnd = -1;
+                mySectionStart = -1
+                mySectionEnd = -1
                 myLine = -1; 
-                currentLastDataLine = -1;
+                currentLastDataLine = -1
                 for i, line in enumerate(FileList):
                    if self.LineIsSection(line) and self.Section.lower() == self.GetSectionName(line).lower():
                       mySectionStart = i

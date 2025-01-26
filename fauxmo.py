@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/pi/Pi-Somfy/venv/bin/python3
 
 """
 The MIT License (MIT)

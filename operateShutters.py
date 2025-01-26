@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/home/pi/Pi-Somfy/venv/bin/python3
 # -*- coding: utf-8 -*-
 
 import sys, re, argparse
@@ -252,7 +252,7 @@ class Shutter(MyLog):
            self.LogInfo ("Rolling code : " + str(code))
            self.LogInfo ("")
 
-           self.frame[0] = 0xA7;       # Encryption key. Doesn't matter much
+           self.frame[0] = 0xA7      # Encryption key. Doesn't matter much
            self.frame[1] = button << 4 # Which button did  you press? The 4 LSB will be the checksum
            self.frame[2] = code >> 8               # Rolling code (big endian)
            self.frame[3] = (code & 0xFF)           # Rolling code
@@ -268,9 +268,9 @@ class Shutter(MyLog):
            for i in range(0, 7):
               checksum = checksum ^ self.frame[i] ^ (self.frame[i] >> 4)
 
-           checksum &= 0b1111; # We keep the last 4 bits only
+           checksum &= 0b1111 # We keep the last 4 bits only
 
-           self.frame[1] |= checksum;
+           self.frame[1] |= checksum
 
            outstring = "With cks  : "
            for octet in self.frame:
@@ -278,7 +278,7 @@ class Shutter(MyLog):
            self.LogInfo (outstring)
 
            for i in range(1, 7):
-              self.frame[i] ^= self.frame[i-1];
+              self.frame[i] ^= self.frame[i-1]
 
            outstring = "Obfuscated :"
            for octet in self.frame:
@@ -358,7 +358,7 @@ class operateShutters(MyLog):
         if not os.path.isfile(self.ConfigFile):
             self.LogConsole("Creating new config file : " + self.ConfigFile)
             defaultConfigFile = os.path.dirname(os.path.realpath(__file__))+'/defaultConfig.conf'
-            print(defaultConfigFile);
+            print(defaultConfigFile)
             if not os.path.isfile(defaultConfigFile):
                 self.LogConsole("Failure to create new config file: "+defaultConfigFile)
                 sys.exit(1)
@@ -367,7 +367,7 @@ class operateShutters(MyLog):
 
         # read config file
         self.config = MyConfig(filename = self.ConfigFile, log = self.console)
-        result = self.config.LoadConfig();
+        result = self.config.LoadConfig()
         if not result:
             self.LogConsole("Failure to load configuration parameters")
             sys.exit(1)
@@ -400,7 +400,7 @@ class operateShutters(MyLog):
         if (args.mqtt == True):
             self.mqtt = MQTT(kwargs={'log':self.log, 'shutter': self.shutter, 'config': self.config})
 
-        self.ProcessCommand(args);
+        self.ProcessCommand(args)
 
     #------------------------ operateShutters::IsLoaded -----------------------------
     #return true if program is already loaded
@@ -533,7 +533,7 @@ class operateShutters(MyLog):
        if (args.mqtt == True):
            self.mqtt.join()
        self.LogInfo ("Process Command Completed....")
-       self.Close();
+       self.Close()
 
     #---------------------operateShutters::Close----------------------------------------
     def Close(self, signum = None, frame = None):

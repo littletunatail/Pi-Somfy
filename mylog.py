@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/home/pi/Pi-Somfy/venv/bin/python3
 import os, sys, time, json
 import logging, logging.handlers
 
